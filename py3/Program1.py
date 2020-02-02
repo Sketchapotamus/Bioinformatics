@@ -1,3 +1,4 @@
+import math
 
 codon = {
     "UUU": "F",      "CUU": "L",      "AUU": "I",      "GUU": "V",
@@ -44,10 +45,38 @@ def reverse_palindromes(dna):
 
 def find_reading_frames(dna):
     frames = []
-    if len(dna) >=3:
-        for x in range(len(dna)-2):
-            if dna[x:x+3] in codon:
-                print(codon[dna[x:x+3]])
+    dna = dna.upper()
+    m_dna = dna.replace("T", "U")
+    r_dna = reverse_compliment(dna).replace("T", "U")
+    print(r_dna)
+    for buffer in range(3):
+        frame = ""
+        for x in range(math.floor(len(m_dna)/3)):
+            if m_dna[3*x+buffer:3*x+buffer+3] in codon:
+                frame += codon[m_dna[3*x+buffer:3*x+buffer+3]]
+                if frame[-1:] == "*":
+                    print("breaking")
+                    break
+        frames.append(frame)
+        if len(frames) == 3:
+            break
+    for buffer in range(3):
+        frame = ""
+        for x in range(math.floor(len(r_dna)/3)):
+            if r_dna[3*x+buffer:3*x+buffer+3] in codon:
+                frame += codon[r_dna[3*x+buffer:3*x+buffer+3]]
+                if frame[-1:] == "*":
+                    print("breaking")
+                    break
+        frames.append(frame)
+        if len(frames) == 3:
+            break
+
+
+    #if len(dna) >= 3:
+    #    for x in range(len(dna)-2):
+    #        if dna[x:x+3] in codon:
+    #            print(codon[dna[x:x+3]])
 
     return frames
 
@@ -58,7 +87,7 @@ def main():
         print("Functions:\n"
               "* 1 - Reverse Compliment\n"
               "* 2 - Reverse Palindrome\n"
-              "* 3 - Find Frames"
+              "* 3 - Find Frames\n"
               "* 4 - Quit\n"
               "Please enter request:", end=' ')
         request = input()
@@ -71,7 +100,14 @@ def main():
                 print(f'{r[0]} at position {r[1]+1}')
         if request == "3":
             print("Please enter the nucleotide sequence:", end=' ')
-            find_reading_frames(input())
+            frames = find_reading_frames(input())
+            print("Forward reading frames:")
+            for x in range(3):
+                print(frames[x])
+            print("Backward reading frames:")
+            for x in range(3, 6):
+                print(frames[x])
+
         if request == "4":
             cont = False
 
