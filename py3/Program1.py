@@ -42,13 +42,24 @@ def reverse_palindromes(dna):
     return palindromes
 
 
+def find_reading_frames(dna):
+    frames = []
+    if len(dna) >=3:
+        for x in range(len(dna)-2):
+            if dna[x:x+3] in codon:
+                print(codon[dna[x:x+3]])
+
+    return frames
+
+
 def main():
     cont = True
     while cont:
         print("Functions:\n"
               "* 1 - Reverse Compliment\n"
               "* 2 - Reverse Palindrome\n"
-              "* 3 - Quit\n"
+              "* 3 - Find Frames"
+              "* 4 - Quit\n"
               "Please enter request:", end=' ')
         request = input()
         if request == "1":
@@ -59,6 +70,9 @@ def main():
             for r in reverse_palindromes(input()):
                 print(f'{r[0]} at position {r[1]+1}')
         if request == "3":
+            print("Please enter the nucleotide sequence:", end=' ')
+            find_reading_frames(input())
+        if request == "4":
             cont = False
 
     return
