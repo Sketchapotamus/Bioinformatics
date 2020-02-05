@@ -24,7 +24,16 @@ def sliding_window(dna1, dna2, window_size, mismatch_limit):
 
 
 def main():
-    graph = sliding_window("GCGAGTGCTTCGTACCC", "CCAAGTCCGATCGGCT", 5, 2)
+    print("Enter first nucleotide:", end=" ")
+    dna1 = input()
+    print("Enter second nucleotide:", end=" ")
+    dna2 = input()
+    print("Enter window size:", end=" ")
+    window_size = int(input())
+    print("Enter mismatch limit:", end=" ")
+    mismatch_limit = int(input())
+
+    graph = sliding_window(dna1, dna2, window_size, mismatch_limit)
     for y in range(len(graph)):
         for x in range(len(graph[0])):
             print(graph[y][x], end=' | ')
