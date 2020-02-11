@@ -11,8 +11,8 @@ def sliding_window(dna1, dna2, window_size, mismatch_limit):
         for x in range(len(dna1)):
             graph[y+1][x+1] = " "
 
-    for y in range(len(dna2)-window_size):
-        for x in range(len(dna1)-window_size):
+    for y in range(len(dna2)-(window_size-1)):
+        for x in range(len(dna1)-(window_size-1)):
             mismatch_count = 0
             for i in range(window_size):
                 if dna1[x+i] != dna2[y+i]:
