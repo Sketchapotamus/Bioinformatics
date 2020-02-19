@@ -35,10 +35,13 @@ def sequence_assembly(fragments):
                 overlap = find_overlap(fragments[x], fragments[y])
                 if overlap > best_overlap[0]:
                     best_overlap = (overlap, x, y)
-        new_fragment = fragments[best_overlap[1]][0:best_overlap[0]] + fragments[best_overlap[2]]
-        fragments.pop(best_overlap[1])
-        fragments.pop(best_overlap[2])
-        fragments.append(new_fragment)
+        new_fragment = fragments[best_overlap[1]][0:-best_overlap[0]] + fragments[best_overlap[2]]
+        remove1 = fragments[best_overlap[1]]
+        remove2 = fragments[best_overlap[2]]
+        fragments.remove(remove1)
+        if not(remove1 == remove2):
+            fragments.remove(remove2)
+            fragments.append(new_fragment)
 
     return fragments[0]
 
